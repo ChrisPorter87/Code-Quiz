@@ -1,12 +1,23 @@
 var startQuiz = document.getElementById("start");
 
+document.getElementById("question1").style.display = "none";
+
+document.getElementById("question2").style.display = "none";
+
+document.getElementById("question3").style.display = "none";
+
+document.getElementById("question4").style.display = "none";
+
+document.getElementById("timer").innerHTML = "1:00";
+
 startQuiz.addEventListener("click", myFunction);
 
 var seconds = 60;
 var timer;
-function myFunction() {
-  document.getElementById("question1").style.display = "block";
 
+var score = 0;
+
+function myFunction() {
   if (seconds < 60) {
     document.getElementById("timer").innerHTML = seconds;
   }
@@ -30,21 +41,13 @@ function myFunction() {
 //   }
 // }
 document.getElementById("start").onclick = function () {
+  document.getElementById("question1").style.display = "block";
   if (!timer) {
     timer = window.setInterval(function () {
       myFunction();
     }, 1000);
   }
 };
-
-document.getElementById("question1").style.display = "none";
-document.getElementById("question2").style.display = "none";
-
-document.getElementById("question3").style.display = "none";
-
-document.getElementById("question4").style.display = "none";
-
-document.getElementById("timer").innerHTML = "1:00";
 
 var list = document.getElementsByClassName("wrong");
 for (let item of list) {
@@ -54,6 +57,7 @@ for (let item of list) {
       alert(
         "That is incorrect. 5 seconds will be deducted from your remaining time!"
       );
+      seconds = seconds - 5;
     }
   });
 }
@@ -82,9 +86,13 @@ var currentQuestion = 0;
 var list = document.getElementsByClassName("correct");
 for (let item of list) {
   item.addEventListener("change", function (event) {
-    document.getElementById(questions[currentQuestion]).style.display = "none";
-    currentQuestion++;
-    document.getElementById(questions[currentQuestion]).style.display = "block";
+    if (currentQuestion < questions.length) {
+      document.getElementById(questions[currentQuestion]).style.display =
+        "none";
+      currentQuestion++;
+      document.getElementById(questions[currentQuestion]).style.display =
+        "block";
+    }
   });
 }
 // document
