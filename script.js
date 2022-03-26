@@ -15,6 +15,18 @@ function myFunction() {
     alert("The quiz is over!");
   }
 }
+// var currentQuestion = 1;
+// function quiz() {
+//   document.getElementById("timer").innerHTML = "question one";
+//   document.buttonclick(currentQuestion++);
+
+//   if ((currentQuestion = 2)) {
+//     document.getElementById("timer").innerHTML = "question two";
+//   }
+//   if ((currentQuestion = 3)) {
+//     document.getElementById("timer").innerHTML = "question three";
+//   }
+// }
 document.getElementById("start").onclick = function () {
   if (!timer) {
     timer = window.setInterval(function () {
@@ -22,9 +34,19 @@ document.getElementById("start").onclick = function () {
     }, 1000);
   }
 };
-//When a key is pressed in the text area, update the timer using myFunction
-
-//If seconds are equal or greater than 0, countdown until 1 minute has passed
-//Else, clear the timer and alert user of how many words they type per minute
 
 document.getElementById("timer").innerHTML = "1:00";
+
+document.getElementById("wrong").addEventListener("change", function (event) {
+  if (event.target && event.target.matches("input[type='radio']")) {
+    alert(
+      "That is incorrect. 5 seconds will be deducted from your remaining time!"
+    );
+  }
+});
+
+document.getElementById("correct").addEventListener("change", function (event) {
+  if (event.target && event.target.matches("input[type='radio']")) {
+    alert("That is correct!");
+  }
+});
