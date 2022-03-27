@@ -77,7 +77,9 @@ for (let item of list) {
           "block";
       } else {
         clearInterval(timer);
-        var initials = prompt("Well done! Please enter your initials");
+        var initials = prompt(
+          "Well done! Please enter your initials. Your remaining time will be your score."
+        );
         console.log("Initials Entered:", initials);
         // Store the user's entered initials into local storage and score
         window.localStorage.setItem("userInitials", initials);
