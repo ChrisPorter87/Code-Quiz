@@ -61,16 +61,6 @@ for (let item of list) {
   });
 }
 
-// document.getElementsByClassName("wrong").forEach(function (elem) {
-//   elem.addEventListener("change", function (event) {
-//     if (event.target && event.target.matches("input[type='radio']")) {
-//       alert(
-//         "That is incorrect. 5 seconds will be deducted from your remaining time!"
-//       );
-//     }
-//   });
-// });
-
 var questions = ["question1", "question2", "question3", "question4"];
 var currentQuestion = 0;
 
@@ -87,29 +77,12 @@ for (let item of list) {
           "block";
       } else {
         clearInterval(timer);
+        var initials = prompt("Well done! Please enter your initials");
+        console.log("Initials Entered:", initials);
+        // Store the user's entered initials into local storage and score
+        window.localStorage.setItem("userInitials", initials);
+        window.localStorage.setItem("score", seconds);
       }
     }
   });
 }
-// document
-//   .getElementsByClassName("correct")
-//   .addEventListener("change", function (event) {
-//     if (event.target && event.target.matches("input[type='radio']")) {
-//       alert("That is correct!");
-//       document.getElementById(questions[currentQuestion]).style.display =
-//         "none";
-//       currentQuestion++;
-//       document.getElementById(questions[currentQuestion]).style.display =
-//         "block";
-//     }
-//   });
-
-// .addEventListener("change", function (event) {
-//     if (event.target && event.target.matches("input[type='radio']")) {
-//       alert("That is correct!");
-//       document.getElementById(questions[currentQuestion]).style.display =
-//         "none";
-//       currentQuestion++;
-//       document.getElementById(questions[currentQuestion]).style.display =
-//         "block";
-//     }
