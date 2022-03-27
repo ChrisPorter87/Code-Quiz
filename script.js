@@ -21,6 +21,7 @@ function myFunction() {
   if (seconds < 60) {
     document.getElementById("timer").innerHTML = seconds;
   }
+
   if (seconds > 0) {
     seconds--;
   } else {
@@ -28,18 +29,7 @@ function myFunction() {
     alert("The quiz is over!");
   }
 }
-// var currentQuestion = 1;
-// function quiz() {
-//   document.getElementById("timer").innerHTML = "question one";
-//   document.buttonclick(currentQuestion++);
 
-//   if ((currentQuestion = 2)) {
-//     document.getElementById("timer").innerHTML = "question two";
-//   }
-//   if ((currentQuestion = 3)) {
-//     document.getElementById("timer").innerHTML = "question three";
-//   }
-// }
 document.getElementById("start").onclick = function () {
   document.getElementById("question1").style.display = "block";
   if (!timer) {
@@ -70,6 +60,7 @@ for (let item of list) {
     }
   });
 }
+
 // document.getElementsByClassName("wrong").forEach(function (elem) {
 //   elem.addEventListener("change", function (event) {
 //     if (event.target && event.target.matches("input[type='radio']")) {
@@ -90,8 +81,13 @@ for (let item of list) {
       document.getElementById(questions[currentQuestion]).style.display =
         "none";
       currentQuestion++;
-      document.getElementById(questions[currentQuestion]).style.display =
-        "block";
+
+      if (currentQuestion < questions.length) {
+        document.getElementById(questions[currentQuestion]).style.display =
+          "block";
+      } else {
+        clearInterval(timer);
+      }
     }
   });
 }
