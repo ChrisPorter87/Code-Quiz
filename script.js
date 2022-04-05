@@ -80,38 +80,40 @@ for (let item of list) {
         var initials = prompt(
           "Well done! Please enter your initials. Your remaining time will be your score."
         );
+        var highscores =
+          JSON.parse(window.localStorage.getItem("scoreInfo")) || [];
 
-        var scoresArray = Array(localStorage.getItem("userScores"));
-
-        var userScore = {
-          initials: initials,
+        // data structure for new scores
+        var newInfo = {
           score: seconds,
+          initials: initials,
         };
 
-        console.log(userScore);
-        scoresArray.push(userScore);
-
-        // stringify array in order to store in local
-        var scoresArrayString = JSON.stringify(scoresArray);
-        window.localStorage.setItem("userScores", scoresArrayString);
+        // write to localstorage
+        highscores.push(newInfo);
+        window.localStorage.setItem("scoreInfo", JSON.stringify(highscores));
       }
     }
   });
 }
 
 document.getElementById("highScore").addEventListener("click", showScores);
+
 function showScores() {
-  var allScores = "",
-    keys = Object.keys(localStorage),
-    i = 0,
-    key;
+  // either get scores from localstorage or set to empty array
+  var highscores = JSON.parse(window.localStorage.getItem("scoreInfo")) || [];
 
-  for (; (key = keys[i]); i++) {
-    console.log(keys[i]);
-    var item = localStorage.getItem(key);
-    console.log(item);
-    allScores += item;
-  }
+  // sort highscores by score property in descending order
+  highscores.sort(function (a, b) {
+    return b.score - a.score;
+  });
 
-  document.getElementById("scores").innerHTML = allScores;
+  highscores.forEach(function (score) {
+    // create li tag for each high score
+    var liTag = document.createElement("li");
+    liTag.textContent = score.initials + " - " + score.score;
+
+    var highScores = document.getElementById("scores");
+    highScores.appendChild(liTag);
+  });
 }
