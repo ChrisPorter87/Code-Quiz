@@ -14,8 +14,8 @@ startQuiz.addEventListener("click", myFunction);
 
 var seconds = 60;
 var timer;
-
-var score = 0;
+var localStorage = [];
+// var score = 0;
 
 function myFunction() {
   if (seconds < 60) {
@@ -80,11 +80,38 @@ for (let item of list) {
         var initials = prompt(
           "Well done! Please enter your initials. Your remaining time will be your score."
         );
-        console.log("Initials Entered:", initials);
-        // Store the user's entered initials into local storage and score
-        window.localStorage.setItem("userInitials", initials);
-        window.localStorage.setItem("score", seconds);
+
+        var scoresArray = Array(localStorage.getItem("userScores"));
+
+        var userScore = {
+          initials: initials,
+          score: seconds,
+        };
+
+        console.log(userScore);
+        scoresArray.push(userScore);
+
+        // stringify array in order to store in local
+        var scoresArrayString = JSON.stringify(scoresArray);
+        window.localStorage.setItem("userScores", scoresArrayString);
       }
     }
   });
+}
+
+document.getElementById("highScore").addEventListener("click", showScores);
+function showScores() {
+  var allScores = "",
+    keys = Object.keys(localStorage),
+    i = 0,
+    key;
+
+  for (; (key = keys[i]); i++) {
+    console.log(keys[i]);
+    var item = localStorage.getItem(key);
+    console.log(item);
+    allScores += item;
+  }
+
+  document.getElementById("scores").innerHTML = allScores;
 }
