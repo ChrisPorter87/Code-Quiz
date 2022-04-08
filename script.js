@@ -14,8 +14,8 @@ startQuiz.addEventListener("click", myFunction);
 
 var seconds = 60;
 var timer;
-
-var score = 0;
+var localStorage = [];
+// var score = 0;
 
 function myFunction() {
   if (seconds < 60) {
@@ -80,11 +80,40 @@ for (let item of list) {
         var initials = prompt(
           "Well done! Please enter your initials. Your remaining time will be your score."
         );
-        console.log("Initials Entered:", initials);
-        // Store the user's entered initials into local storage and score
-        window.localStorage.setItem("userInitials", initials);
-        window.localStorage.setItem("score", seconds);
+        var highscores =
+          JSON.parse(window.localStorage.getItem("scoreInfo")) || [];
+
+        // data structure for new scores
+        var newInfo = {
+          score: seconds,
+          initials: initials,
+        };
+
+        // write to localstorage
+        highscores.push(newInfo);
+        window.localStorage.setItem("scoreInfo", JSON.stringify(highscores));
       }
     }
+  });
+}
+
+document.getElementById("highScore").addEventListener("click", showScores);
+
+function showScores() {
+  // either get scores from localstorage or set to empty array
+  var highscores = JSON.parse(window.localStorage.getItem("scoreInfo")) || [];
+
+  // sort highscores by score property in descending order
+  highscores.sort(function (a, b) {
+    return b.score - a.score;
+  });
+
+  highscores.forEach(function (score) {
+    // create li tag for each high score
+    var liTag = document.createElement("li");
+    liTag.textContent = score.initials + " - " + score.score;
+
+    var highScores = document.getElementById("scores");
+    highScores.appendChild(liTag);
   });
 }

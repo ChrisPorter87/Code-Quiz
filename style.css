@@ -2,3 +2,6 @@ body {
   font-family: "Rubik Moonrocks", sans-serif;
   background-color: beige;
 }
+.scores {
+  border-top: black solid 5px;
+}
